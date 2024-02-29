@@ -10,22 +10,16 @@ import {
   Button
 } from 'react-native';
 
-function ToDoList(props) {
-  return (
-<View>
-      <View style={[styles.task, styles.completed]}>
-        <Text style={styles.taskText}>Do laundry</Text>
-      </View>
-
-      <View style={[styles.task]}>
-        <Text style={styles.taskText}>Go to gym</Text>
-      </View>
-
-      <View style={[styles.task, styles.completed]}>
-        <Text style={styles.taskText}>Walk dog</Text>
-      </View>
-</View>
-  );
+function ToDoList({tasks}) {
+    return (
+      <View>
+      {tasks.map((task, index) => (
+          <View key={index} style={styles.task}>
+              <Text style={styles.taskText}>{task}</Text>
+          </View>
+      ))}
+  </View>
+    );
 }
 
 const styles = StyleSheet.create({
