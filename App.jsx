@@ -27,10 +27,15 @@ function App() {
     'Walk dog'
   ]);
 
+  const addTask = (taskText) => {
+    setTasks([...tasks, taskText]);
+  };
+
   return (
     <SafeAreaView>
   <ToDoList tasks={tasks} />
-  < ToDoForm />
+  <ToDoForm addTask={addTask} />
+  
 
     </SafeAreaView>
   );
@@ -62,6 +67,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     marginRight: 10,
+    minHeight: 50,
   },
 });
 

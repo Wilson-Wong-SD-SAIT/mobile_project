@@ -9,9 +9,20 @@ import {
   TextInput,
   Button
 } from 'react-native';
-function ToDoForm(props) {
+
+function ToDoForm({addTask}) {
+  const [taskText, setTaskText] = React.useState('');
   return (
-<View>
+
+<View style={{flexDirection: 'row'}}>
+
+<View><TextInput
+  style={styles.input}
+  placeholder="Add a new task..."
+  onChangeText={(text) => setTaskText(text)}
+  value={taskText}
+/></View>
+{/* 
       <View style={[styles.task, styles.completed]}>
         <Text style={styles.taskText}>Do laundry</Text>
       </View>
@@ -22,8 +33,11 @@ function ToDoForm(props) {
 
       <View style={[styles.task, styles.completed]}>
         <Text style={styles.taskText}>Walk dog</Text>
-      </View>
+      </View> */}
+      <Button 
+      title="Add Task" onPress={() => addTask(taskText)} />
 </View>
+
   );
 }
 
