@@ -1,7 +1,5 @@
 import React from 'react';
-import ToDoList from '../components/ToDoList';
 import {useState} from 'react';
-import ToDoForm from '../components/ToDoForm';
 import MainLayout from '../layouts/MainLayout';
 import {
   SafeAreaView,
@@ -11,7 +9,8 @@ import {
   Text,
   ScrollView,
   TextInput,
-  Button
+  Button,
+  Image
 } from 'react-native';
 
 
@@ -31,19 +30,65 @@ function HomeScreen({ navigation }) {
         newTasks.pop(); // pop the last task off the array
         setTasks(newTasks); 
       }
+
+      const styles = StyleSheet.create({
+        container: {
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        },
+        image: {
+          width: 300, // Set the width and height as desired
+          height: 300,
+        },
+        buttonContainer: {
+          marginTop: 10, // Adds space above the button
+          width: '80%', // Set the width of the buttons
+        },
+
+      });
     
 
     return (
       <MainLayout>
-        <SafeAreaView>        
-        
-        <ToDoList tasks={tasks} />
-        <ToDoForm addTask={addTask} removeTask={removeTask}/>
-        <Button
-            title="Go to About"
+        <SafeAreaView style={styles.container}>        
+        <Image
+        source={require('../icon.jpg')}
+        style={styles.image}
+      />
+
+<View style={styles.buttonContainer}>
+          <Button 
+            title="About"
             onPress={() => navigation.navigate('About')}
-        />
+          />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button 
+            title="Single Player"
+            onPress={() => navigation.navigate('Single')}
+          />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button 
+            title="Multiplayer"
+            onPress={() => navigation.navigate('Multi')}
+          />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button 
+            title="Statistics"
+            onPress={() => navigation.navigate('Stats')}
+          />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button 
+            title="Setting"
+            onPress={() => navigation.navigate('Setting')}
+          />
+        </View>
         </SafeAreaView>
+
 </MainLayout>
       
     );

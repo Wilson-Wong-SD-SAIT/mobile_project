@@ -1,46 +1,73 @@
- //Create a AboutScreen.js component which displays the name of the app, your name, and the current date.
- import React from 'react';
- import MainLayout from '../layouts/MainLayout';
- import {
-   SafeAreaView,
-   StyleSheet,
-   Pressable,
-   View,
-   Text,
-   ScrollView,
-   TextInput,
-   Button
- } from 'react-native';
+import React from 'react';
+import MainLayout from '../layouts/MainLayout';
+import {
+  SafeAreaView,
+  StyleSheet,
+  View,
+  Text,
+  Image,
+} from 'react-native';
 
- function AboutScreen() {
+function AboutScreen() {
   const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingHorizontal: 20,
+    },
+    backgroundImage: {
+      flex: 1,
+      resizeMode: 'cover',
+      justifyContent: 'center',
+    },
+    content: {
+      backgroundColor: 'rgba(255, 255, 255, 0.8)',
+      padding: 20,
+      borderRadius: 10,
+    },
     title: {
       fontSize: 36,
       fontWeight: 'bold',
       textAlign: 'center',
-      marginTop: 20,
-    },
-    name: {
-      fontSize: 24,
-      textAlign: 'center',
       marginBottom: 20,
     },
-    date: {
+    description: {
       fontSize: 18,
       textAlign: 'center',
       marginBottom: 20,
     },
+    date: {
+      fontSize: 16,
+      textAlign: 'center',
+      color: 'gray',
+    },
+    image: {
+      width: 300,
+      height: 300,
+      borderRadius: 10,
+      marginBottom: 20,
+    },
   });
-   return (
+
+  return (
     <MainLayout>
-     <SafeAreaView>
 
-       <Text style={styles.title}>To Do App</Text>
-       <Text style={styles.name}>By: Simon Chan</Text>
-       <Text style={styles.date}>{new Date().toDateString()}</Text>
+        <SafeAreaView style={styles.container}>
+          <View style={styles.content}>
+            <Text style={styles.title}>Tic Tac Toe Game</Text>
+            <Image
+        source={require('../hongkong.jpg')}
+        style={styles.image}
+      />
+            <Text style={styles.description}>
+              We are a group of programming enthusiasts from Hong Kong who love creating engaging and fun applications. Our passion for coding and problem-solving drives us to develop innovative solutions and bring joy to our users.
+            </Text>
+            <Text style={styles.date}>{new Date().toDateString()}</Text>
+          </View>
+        </SafeAreaView>
+    </MainLayout>
+  );
+}
 
-     </SafeAreaView>
-     </MainLayout>
-   );
- }
 export default AboutScreen;

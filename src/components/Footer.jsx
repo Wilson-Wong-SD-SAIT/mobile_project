@@ -12,7 +12,7 @@ import {
 function Footer() {
   return (
     <SafeAreaView>
-      <Text>Simon Chan 2024</Text>
+      <Text>Later Gator 2024</Text>
     </SafeAreaView>
   );
 }

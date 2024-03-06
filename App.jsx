@@ -7,6 +7,10 @@
 import React from 'react';
 import HomeScreen from './src/screens/HomeScreen';
 import AboutScreen from './src/screens/AboutScreen';
+import SingleScreen from './src/screens/SingleScreen';
+import MultiScreen from './src/screens/MultiScreen';
+import SettingScreen from './src/screens/SettingScreen';
+import StatsScreen from './src/screens/StatsScreen';
 import {
   SafeAreaView,
   StyleSheet,
@@ -31,6 +35,10 @@ function App() {
 <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="About" component={AboutScreen} />
+        <Stack.Screen name="Single" component={SingleScreen} />
+        <Stack.Screen name="Multi" component={MultiScreen} />
+        <Stack.Screen name="Setting" component={SettingScreen} />
+        <Stack.Screen name="Stats" component={StatsScreen} />
       </Stack.Navigator>
 
   {/* <ToDoList tasks={tasks} />
