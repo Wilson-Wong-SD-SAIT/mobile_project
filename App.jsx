@@ -5,8 +5,8 @@
  */
 
 import React from 'react';
-import ToDoList from './components/ToDoList';
-import ToDoForm from './components/ToDoForm';
+import HomeScreen from './src/screens/HomeScreen';
+import AboutScreen from './src/screens/AboutScreen';
 import {
   SafeAreaView,
   StyleSheet,
@@ -18,26 +18,25 @@ import {
   Button
 } from 'react-native';
 import {useState} from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
 function App() {
-  const [tasks, setTasks] = useState([
-    'Do laundry',
-    'Go to gym',
-    'Walk dog'
-  ]);
-
-  const addTask = (taskText) => {
-    setTasks([...tasks, taskText]);
-  };
+  const Stack = createNativeStackNavigator();
 
   return (
-    <SafeAreaView>
-  <ToDoList tasks={tasks} />
-  <ToDoForm addTask={addTask} />
-  
+    <NavigationContainer>
 
-    </SafeAreaView>
+<Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="About" component={AboutScreen} />
+      </Stack.Navigator>
+
+  {/* <ToDoList tasks={tasks} />
+  <ToDoForm addTask={addTask} removeTask={removeTask}/> */}
+  
+    </NavigationContainer>
   );
 }
 
@@ -67,7 +66,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     marginRight: 10,
-    minHeight: 50,
+  
+  },
+  title: {
+    fontSize: 36,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop: 20,
+  },
+  name: {
+    fontSize: 24,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  date: {
+    fontSize: 18,
+    textAlign: 'center',
+    marginBottom: 20,
   },
 });
 

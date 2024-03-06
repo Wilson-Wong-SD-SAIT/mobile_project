@@ -10,7 +10,7 @@ import {
   Button
 } from 'react-native';
 
-function ToDoForm({addTask}) {
+function ToDoForm({addTask, removeTask}) {
   const [taskText, setTaskText] = React.useState('');
   return (
 
@@ -36,6 +36,7 @@ function ToDoForm({addTask}) {
       </View> */}
       <Button 
       title="Add Task" onPress={() => addTask(taskText)} />
+      <Button color="#FF0000" title = "Remove Task" onPress={() => removeTask(taskText)} />
 </View>
 
   );
