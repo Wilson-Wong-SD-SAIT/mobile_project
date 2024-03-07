@@ -2,13 +2,34 @@ import React, { useState, useEffect } from 'react';
 import MainLayout from '../layouts/MainLayout';
 import { SafeAreaView, StyleSheet, Pressable, View, Text, Alert, Button } from 'react-native';
 import { incrementGamesPlayed, incrementWins, incrementLosses, incrementDraws, initializeGameStats } from './GameStats';
+
+import Sound from 'react-native-sound';
+
 const boardSize = 3; // Tic-Tac-Toe board size
+
 
 function SingleScreen() {
   const [board, setBoard] = useState(Array(boardSize).fill(null).map(() => Array(boardSize).fill('')));
   const [currentPlayer, setCurrentPlayer] = useState('O'); // User is 'O' and computer is 'X'
   const [isComputerTurn, setIsComputerTurn] = useState(false);
   const [winner, setWinner] = useState(null);
+
+
+ const sound = new Sound(`a.mp3`, Sound.MAIN_BUNDLE, (error) => {
+   if (error) {
+  console.log('failed to load the sound', error);
+   return;
+  }
+});
+const winnerSound = new Sound(`c.mp3`, Sound.MAIN_BUNDLE, (error) => {
+  if (error) {
+ console.log('failed to load the sound', error);
+  return;
+ }
+});
+  ;
+
+
 
 // Initialize the game stats
   useEffect(() => {
@@ -36,7 +57,7 @@ function SingleScreen() {
       const timer = setTimeout(() => {
         computerMove();
         setIsComputerTurn(false); // Reset the trigger for the computer's turn
-      }, 500);
+      }, 600);
       return () => clearTimeout(timer); // Clean up the timer if the component unmounts
     }
   }, [isComputerTurn, winner]); // This effect runs when `isComputerTurn` changes
@@ -45,9 +66,11 @@ function SingleScreen() {
     // Horizontal check
     for (let i = 0; i < boardSize; i++) {
       if (newBoard[i].every(cell => cell === 'O')) {
+        winnerSound.play()
         return 'O';
       }
       if (newBoard[i].every(cell => cell === 'X')) {
+        winnerSound.play()
         return 'X';
       }
     }
@@ -56,9 +79,11 @@ function SingleScreen() {
     for (let i = 0; i < boardSize; i++) {
       const column = newBoard.map(row => row[i]);
       if (column.every(cell => cell === 'O')) {
+        winnerSound.play()
         return 'O';
       }
       if (column.every(cell => cell === 'X')) {
+        winnerSound.play()
         return 'X';
       }
     }
@@ -67,14 +92,17 @@ function SingleScreen() {
     const diagonal1 = [newBoard[0][0], newBoard[1][1], newBoard[2][2]];
     const diagonal2 = [newBoard[0][2], newBoard[1][1], newBoard[2][0]];
     if (diagonal1.every(cell => cell === 'O') || diagonal2.every(cell => cell === 'O')) {
+      winnerSound.play()
       return 'O';
     }
     if (diagonal1.every(cell => cell === 'X') || diagonal2.every(cell => cell === 'X')) {
+      winnerSound.play()
       return 'X';
     }
 
     // Check for a tie
     if (newBoard.flat().every(cell => cell !== '')) {
+      winnerSound.play()
       return 'Tie';
     }
 
@@ -125,6 +153,7 @@ function SingleScreen() {
   };
 
 const handlePress = (row, col) => {
+  sound.play();
   if (board[row][col] !== '' || currentPlayer !== 'O' || winner) {
     return;
   }
@@ -189,7 +218,7 @@ const handlePress = (row, col) => {
           onPress={() => !winner && handlePress(rowIndex, colIndex)}
           disabled={!!winner}
         >
-          {/* Conditionally apply the red color to 'X' */}
+          {/* apply the red color to 'X' */}
           <Text style={[styles.cellText, cell === 'X' && styles.cellTextX]}>{cell}</Text>
         </Pressable>
       ))}
@@ -204,6 +233,8 @@ const handlePress = (row, col) => {
           <Button title="Play Again" onPress={resetGame} />
         </>
       )}
+
+
     </SafeAreaView>
   </MainLayout>
   );
