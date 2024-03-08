@@ -60,7 +60,7 @@ function AboutScreen() {
         source={require('../hongkong.jpg')}
         style={styles.image}
       />
-            <Text style={styles.description}>
+            <Text style={styles.date}>
               We are a group of programming enthusiasts from Hong Kong who love creating engaging and fun applications. Our passion for coding and problem-solving drives us to develop innovative solutions and bring joy to our users.
             </Text>
             <Text style={styles.date}>{new Date().toDateString()}</Text>

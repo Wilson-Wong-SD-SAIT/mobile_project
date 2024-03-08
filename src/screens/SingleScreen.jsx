@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import MainLayout from '../layouts/MainLayout';
 import { SafeAreaView, StyleSheet, Pressable, View, Text, Alert, Button } from 'react-native';
-import { incrementGamesPlayed, incrementWins, incrementLosses, incrementDraws, initializeGameStats } from './GameStats';
+import { incrementGamesPlayed, incrementWins, incrementLosses, incrementDraws, initializeGameStats, getSoundVolume } from './GameStats';
+
 
 import Sound from 'react-native-sound';
 
 const boardSize = 3; // Tic-Tac-Toe board size
+const sound = new Sound(`a.mp3`, Sound.MAIN_BUNDLE, (error) => {
+  if (error) {
+ console.log('failed to load the sound', error);
+  return;
+ }
+});
+const winnerSound = new Sound(`c.mp3`, Sound.MAIN_BUNDLE, (error) => {
+ if (error) {
+console.log('failed to load the sound', error);
+ return;
+}
+});
 
 
 function SingleScreen() {
@@ -13,21 +26,17 @@ function SingleScreen() {
   const [currentPlayer, setCurrentPlayer] = useState('O'); // User is 'O' and computer is 'X'
   const [isComputerTurn, setIsComputerTurn] = useState(false);
   const [winner, setWinner] = useState(null);
+  
+  useEffect(() => {
+    // Get the current sound volume from GameStats
+    const volume = getSoundVolume();
+  
+    // Set the volume for the sound effects
+    sound.setVolume(volume);
+    winnerSound.setVolume(volume);
+  }, []);
 
 
- const sound = new Sound(`a.mp3`, Sound.MAIN_BUNDLE, (error) => {
-   if (error) {
-  console.log('failed to load the sound', error);
-   return;
-  }
-});
-const winnerSound = new Sound(`c.mp3`, Sound.MAIN_BUNDLE, (error) => {
-  if (error) {
- console.log('failed to load the sound', error);
-  return;
- }
-});
-  ;
 
 
 

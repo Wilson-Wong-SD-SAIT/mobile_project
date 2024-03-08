@@ -44,10 +44,12 @@ function StatsScreen() {
       fontSize: 18,
       fontWeight: 'bold',
       marginBottom: 5,
+      color: '#333333',
     },
     statValue: {
       fontSize: 24,
       fontWeight: 'bold',
+      color: '#333333',
     },
   });
 

@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Switch, StyleSheet, Button } from 'react-native';
 import Slider from '@react-native-community/slider';
 import { useNavigation } from '@react-navigation/native';
+import DeviceBrightness from '@adrianso/react-native-device-brightness';
+import { setSoundVolume, getSoundVolume } from './GameStats';
 
+DeviceBrightness.setBrightnessLevel(0.1);
 const SettingScreen = () => {
   const [soundEffectsEnabled, setSoundEffectsEnabled] = useState(true);
   const [volume, setVolume] = useState(50);
@@ -10,15 +13,26 @@ const SettingScreen = () => {
 
   const navigation = useNavigation();
 
+  useEffect(() => {
+    // Load the current sound volume from GameStats
+    setVolume(getSoundVolume() * 100);
+  }, []);
+
+
   const toggleSoundEffects = () => {
     setSoundEffectsEnabled(prevState => !prevState);
   };
 
   const handleVolumeChange = value => {
+    setSoundVolume(Math.round(value)/100);
     setVolume(Math.round(value));
+
   };
 
+
   const handleBrightnessChange = value => {
+    const brightnessValue = value /100; // Convert percentage to a value between 0 and 1
+    DeviceBrightness.setBrightnessLevel(brightnessValue);
     setBrightness(Math.round(value));
   };
 

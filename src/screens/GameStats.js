@@ -9,6 +9,16 @@ let gameStats = {
   wins: 0,
   losses: 0,
   draws: 0,
+  soundVolume: 1,
+};
+
+export const setSoundVolume = async (volume) => {
+  gameStats.soundVolume = volume;
+  await saveGameStats();
+};
+
+export const getSoundVolume = () => {
+  return gameStats.soundVolume;
 };
 
 const saveGameStats = async () => {
