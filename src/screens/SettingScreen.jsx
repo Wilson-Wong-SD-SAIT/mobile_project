@@ -6,6 +6,7 @@ import DeviceBrightness from '@adrianso/react-native-device-brightness';
 import { setSoundVolume, getSoundVolume } from './GameStats';
 
 DeviceBrightness.setBrightnessLevel(0.1);
+
 const SettingScreen = () => {
   const [soundEffectsEnabled, setSoundEffectsEnabled] = useState(true);
   const [volume, setVolume] = useState(50);
@@ -15,23 +16,29 @@ const SettingScreen = () => {
 
   useEffect(() => {
     // Load the current sound volume from GameStats
-    setVolume(getSoundVolume() * 100);
+    const currentVolume = getSoundVolume() * 100;
+    setVolume(currentVolume);
+    setSoundEffectsEnabled(currentVolume > 0);
   }, []);
 
-
   const toggleSoundEffects = () => {
+    if (soundEffectsEnabled) {
+      setVolume(0);
+      setSoundVolume(0);
+    } else {
+      setVolume(100);
+      setSoundVolume(1);
+    }
     setSoundEffectsEnabled(prevState => !prevState);
   };
 
   const handleVolumeChange = value => {
-    setSoundVolume(Math.round(value)/100);
+    setSoundVolume(Math.round(value) / 100);
     setVolume(Math.round(value));
-
   };
 
-
   const handleBrightnessChange = value => {
-    const brightnessValue = value /100; // Convert percentage to a value between 0 and 1
+    const brightnessValue = value / 100; // Convert percentage to a value between 0 and 1
     DeviceBrightness.setBrightnessLevel(brightnessValue);
     setBrightness(Math.round(value));
   };
@@ -102,6 +109,7 @@ const SettingScreen = () => {
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
