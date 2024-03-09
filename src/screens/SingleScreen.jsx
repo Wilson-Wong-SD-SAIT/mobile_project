@@ -137,10 +137,46 @@ function SingleScreen() {
 
   const computerMove = () => {
     if (winner) {
-        return; // Prevent the computer from making a move if there's already a winner
+      return; // Prevent the computer from making a move if there's already a winner
     }
-
-    // Find all empty positions
+  
+    // Check if the computer can win
+    for (let i = 0; i < boardSize; i++) {
+      for (let j = 0; j < boardSize; j++) {
+        if (board[i][j] === '') {
+          const newBoard = board.map((rowArr) => [...rowArr]);
+          newBoard[i][j] = 'X';
+          if (checkWinner(newBoard) === 'X') {
+            setBoard(newBoard);
+            setCurrentPlayer('O');
+            setWinner('X'); // Set the winner to 'X' when the computer wins
+            return;
+          }
+        }
+      }
+    }
+  
+    // Check if the user can win and block their move
+    for (let i = 0; i < boardSize; i++) {
+      for (let j = 0; j < boardSize; j++) {
+        if (board[i][j] === '') {
+          const newBoard = board.map((rowArr) => [...rowArr]);
+          newBoard[i][j] = 'O';
+          if (checkWinner(newBoard) === 'O') {
+            newBoard[i][j] = 'X';
+            setBoard(newBoard);
+            setCurrentPlayer('O');
+            const winner = checkWinner(newBoard);
+            if (winner) {
+              setWinner(winner); // Set the winner if blocking the user's move results in a win
+            }
+            return;
+          }
+        }
+      }
+    }
+  
+    // If no winning or blocking move, make a random move
     let emptyPositions = [];
     board.forEach((row, rowIndex) => {
       row.forEach((cell, colIndex) => {
@@ -149,15 +185,17 @@ function SingleScreen() {
         }
       });
     });
-
-    // Select a random empty position
+  
     if (emptyPositions.length > 0) {
       const randomPosition = emptyPositions[Math.floor(Math.random() * emptyPositions.length)];
-      const newBoard = board.map((rowArr) => [...rowArr]); // Deep copy of the board
-      newBoard[randomPosition.rowIndex][randomPosition.colIndex] = 'X'; // Computer places 'X'
-      setBoard(newBoard); // Update the state
-      setCurrentPlayer('O'); // Change back to the human player
-      checkWinner(newBoard); // Check for a winner after the computer's move
+      const newBoard = board.map((rowArr) => [...rowArr]);
+      newBoard[randomPosition.rowIndex][randomPosition.colIndex] = 'X';
+      setBoard(newBoard);
+      setCurrentPlayer('O');
+      const winner = checkWinner(newBoard);
+      if (winner) {
+        setWinner(winner); // Set the winner if the random move results in a win
+      }
     }
   };
 

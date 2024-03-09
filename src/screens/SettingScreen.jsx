@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import DeviceBrightness from '@adrianso/react-native-device-brightness';
 import { setSoundVolume, getSoundVolume } from './GameStats';
 
-DeviceBrightness.setBrightnessLevel(0.1);
+// DeviceBrightness.setBrightnessLevel(0.1);
 
 const SettingScreen = () => {
   const [soundEffectsEnabled, setSoundEffectsEnabled] = useState(true);
