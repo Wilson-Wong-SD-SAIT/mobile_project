@@ -11,9 +11,9 @@ import {
 } from 'react-native';
 function Footer() {
   return (
-    <SafeAreaView>
+    <>
       <Text>Later Gator 2024</Text>
-    </SafeAreaView>
+    </>
   );
 }
 export default Footer;

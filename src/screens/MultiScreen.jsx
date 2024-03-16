@@ -71,68 +71,25 @@ function MultiScreen() {
     }
   };
 
-  const styles = StyleSheet.create({
-    board: {
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    row: {
-      flexDirection: 'row',
-    },
-    cell: {
-      width: 100,
-      height: 100,
-      borderWidth: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    cellText: {
-      fontSize: 48,
-    },
-    winnerText: {
-      fontSize: 38,
-      fontWeight: 'bold',
-      marginTop: 20,
-      color: 'red',
-    },
-    cellText: {
-        fontSize: 48,
-        fontWeight: 'bold',
-        color: 'black', 
-      },
-      cellTextX: {
-        color: 'red', // Color for 'X'
-      },
-    currentPlayerText: {
-      fontSize: 24,
-      fontWeight: 'bold',
-      marginTop: 20,
-      color: 'blue',
-  }
-
-
-  });
 
   return (
     <MainLayout>
-      <SafeAreaView style={styles.container}>
-        <View style={styles.board}>
-          {board.map((row, rowIndex) => (
-            <View key={`row-${rowIndex}`} style={styles.row}>
-              {row.map((cell, colIndex) => (
-                <Pressable
-                  key={`cell-${rowIndex}-${colIndex}`}
-                  style={styles.cell}
-                  onPress={() => !winner && handlePress(rowIndex, colIndex)}
-                  disabled={!!winner}
-                >
-                  <Text style={[styles.cellText, cell === 'X' && styles.cellTextX]}>{cell}</Text>
-                </Pressable>
-              ))}
-            </View>
-          ))}
-        </View>
+      <View style={styles.board}>
+        {board.map((row, rowIndex) => (
+          <View key={`row-${rowIndex}`} style={styles.row}>
+            {row.map((cell, colIndex) => (
+              <Pressable
+                key={`cell-${rowIndex}-${colIndex}`}
+                style={styles.cell}
+                onPress={() => !winner && handlePress(rowIndex, colIndex)}
+                disabled={!!winner}
+              >
+                <Text style={[styles.cellText, cell === 'X' && styles.cellTextX]}>{cell}</Text>
+              </Pressable>
+            ))}
+          </View>
+        ))}
+      </View>
         <Text style={styles.currentPlayerText}>Current Player: {currentPlayer}</Text>
         {winner && (
           <>
@@ -142,9 +99,49 @@ function MultiScreen() {
             <Button title="Play Again" onPress={resetGame} />
           </>
         )}
-      </SafeAreaView>
     </MainLayout>
   );
 }
+
+const styles = StyleSheet.create({
+  board: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  row: {
+    flexDirection: 'row',
+  },
+  cell: {
+    width: 100,
+    height: 100,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  cellText: {
+    fontSize: 48,
+  },
+  winnerText: {
+    fontSize: 38,
+    fontWeight: 'bold',
+    marginTop: 20,
+    color: 'red',
+  },
+  cellText: {
+      fontSize: 48,
+      fontWeight: 'bold',
+      color: 'black', 
+    },
+    cellTextX: {
+      color: 'red', // Color for 'X'
+    },
+  currentPlayerText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginTop: 20,
+    color: 'blue',
+  }
+});
 
 export default MultiScreen;
