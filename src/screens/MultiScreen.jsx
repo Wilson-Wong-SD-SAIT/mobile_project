@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import MainLayout from '../layouts/MainLayout';
-import { SafeAreaView, StyleSheet, Pressable, View, Text, Button } from 'react-native';
+import { StyleSheet, Pressable, View, Text, Button } from 'react-native';
 
 const boardSize = 3; // Tic-Tac-Toe board size
 

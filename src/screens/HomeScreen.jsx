@@ -2,13 +2,8 @@ import React from 'react';
 import {useState} from 'react';
 import MainLayout from '../layouts/MainLayout';
 import {
-  SafeAreaView,
   StyleSheet,
-  Pressable,
   View,
-  Text,
-  ScrollView,
-  TextInput,
   Button,
   Image
 } from 'react-native';

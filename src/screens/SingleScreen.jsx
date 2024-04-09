@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MainLayout from '../layouts/MainLayout';
-import { SafeAreaView, StyleSheet, Pressable, View, Text, Alert, Button } from 'react-native';
+import { StyleSheet, Pressable, View, Text, Alert, Button } from 'react-native';
 import { incrementGamesPlayed, incrementWins, incrementLosses, incrementDraws, initializeGameStats, getSoundVolume } from './GameStats';
 
 
