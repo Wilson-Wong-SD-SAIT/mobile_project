@@ -2,14 +2,9 @@ import React from 'react';
 import MainLayout from '../layouts/MainLayout';
 import { getGameStats } from './GameStats';
 import {
-  SafeAreaView,
   StyleSheet,
-  Pressable,
   View,
-  Text,
-  ScrollView,
-  TextInput,
-  Button
+  Text
 } from 'react-native';
 
 function StatsScreen() {

@@ -1,5 +1,5 @@
 /**
- * My To Do List App
+ * Tic Tac Toe App
  *
  * @format
  */
@@ -31,8 +31,7 @@ function App() {
 
   return (
     <NavigationContainer>
-
-<Stack.Navigator>
+      <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="About" component={AboutScreen} />
         <Stack.Screen name="Single" component={SingleScreen} />
@@ -40,10 +39,6 @@ function App() {
         <Stack.Screen name="Setting" component={SettingScreen} />
         <Stack.Screen name="Stats" component={StatsScreen} />
       </Stack.Navigator>
-
-  {/* <ToDoList tasks={tasks} />
-  <ToDoForm addTask={addTask} removeTask={removeTask}/> */}
-  
     </NavigationContainer>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MainLayout from '../layouts/MainLayout';
-import { SafeAreaView, StyleSheet, Pressable, View, Text, Alert, Button } from 'react-native';
+import { StyleSheet, Pressable, View, Text, Alert, Button } from 'react-native';
 import { incrementGamesPlayed, incrementWins, incrementLosses, incrementDraws, initializeGameStats, getSoundVolume } from './GameStats';
 
 
@@ -19,6 +19,12 @@ console.log('failed to load the sound', error);
  return;
 }
 });
+const loserSound = new Sound(`e.mp3`, Sound.MAIN_BUNDLE, (error) => {
+  if (error) {
+ console.log('failed to load the sound', error);
+  return;
+ }
+ });
 
 
 function SingleScreen() {
@@ -34,10 +40,8 @@ function SingleScreen() {
     // Set the volume for the sound effects
     sound.setVolume(volume);
     winnerSound.setVolume(volume);
+    loserSound.setVolume(volume);
   }, []);
-
-
-
 
 
 // Initialize the game stats
@@ -79,7 +83,7 @@ function SingleScreen() {
         return 'O';
       }
       if (newBoard[i].every(cell => cell === 'X')) {
-        winnerSound.play()
+        loserSound.play()
         return 'X';
       }
     }
@@ -92,7 +96,7 @@ function SingleScreen() {
         return 'O';
       }
       if (column.every(cell => cell === 'X')) {
-        winnerSound.play()
+        loserSound.play()
         return 'X';
       }
     }
@@ -105,13 +109,13 @@ function SingleScreen() {
       return 'O';
     }
     if (diagonal1.every(cell => cell === 'X') || diagonal2.every(cell => cell === 'X')) {
-      winnerSound.play()
+      loserSound.play()
       return 'X';
     }
 
     // Check for a tie
     if (newBoard.flat().every(cell => cell !== '')) {
-      winnerSound.play()
+      loserSound.play()
       return 'Tie';
     }
 
@@ -217,61 +221,25 @@ const handlePress = (row, col) => {
   setIsComputerTurn(true); // Only trigger computer's move if there's no winner
 };
 
-  const styles = StyleSheet.create({
-    board: {
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    row: {
-      flexDirection: 'row',
-    },
-    cell: {
-      width: 100,
-      height: 100,
-      borderWidth: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    cellText: {
-      fontSize: 48,
-    },
-    winnerText: {
-      fontSize: 38,
-      fontWeight: 'bold',
-      marginTop: 20,
-      color: 'red',
-    },
-    cellText: {
-        fontSize: 48,
-        fontWeight: 'bold',
-        color: 'black', 
-      },
-      cellTextX: {
-        color: 'red', // Color for 'X'
-      },
-  });
-
   return (
     <MainLayout>
-    <SafeAreaView style={styles.container}>
-    <View style={styles.board}>
-  {board.map((row, rowIndex) => (
-    <View key={`row-${rowIndex}`} style={styles.row}>
-      {row.map((cell, colIndex) => (
-        <Pressable
-          key={`cell-${rowIndex}-${colIndex}`}
-          style={styles.cell}
-          onPress={() => !winner && handlePress(rowIndex, colIndex)}
-          disabled={!!winner}
-        >
-          {/* apply the red color to 'X' */}
-          <Text style={[styles.cellText, cell === 'X' && styles.cellTextX]}>{cell}</Text>
-        </Pressable>
-      ))}
-    </View> 
-  ))}
-</View>
+      <View style={styles.board}>
+          {board.map((row, rowIndex) => (
+            <View key={`row-${rowIndex}`} style={styles.row}>
+              {row.map((cell, colIndex) => (
+                <Pressable
+                  key={`cell-${rowIndex}-${colIndex}`}
+                  style={styles.cell}
+                  onPress={() => !winner && handlePress(rowIndex, colIndex)}
+                  disabled={!!winner}
+                >
+                  {/* apply the red color to 'X' */}
+                  <Text style={[styles.cellText, cell === 'X' && styles.cellTextX]}>{cell}</Text>
+                </Pressable>
+              ))}
+            </View> 
+          ))}
+      </View>
       {winner && (
         <>
           <Text style={styles.winnerText}>
@@ -280,11 +248,43 @@ const handlePress = (row, col) => {
           <Button title="Play Again" onPress={resetGame} />
         </>
       )}
-
-
-    </SafeAreaView>
-  </MainLayout>
+    </MainLayout>
   );
 }
+
+const styles = StyleSheet.create({
+  board: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  row: {
+    flexDirection: 'row',
+  },
+  cell: {
+    width: 100,
+    height: 100,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  cellText: {
+    fontSize: 48,
+  },
+  winnerText: {
+    fontSize: 38,
+    fontWeight: 'bold',
+    marginTop: 20,
+    color: 'red',
+  },
+  cellText: {
+      fontSize: 48,
+      fontWeight: 'bold',
+      color: 'black', 
+    },
+    cellTextX: {
+      color: 'red', // Color for 'X'
+    },
+});
 
 export default SingleScreen;
